@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import { ref } from 'vue'
+
+const count = ref(0)
 </script>
 
 <template>
   <RouterView />
 </template>
 
-<style scoped>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-</style>
+<style scoped></style>
