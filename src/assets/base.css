@@ -1,50 +1,47 @@
-/* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
+  --white: #ffffff;
+  --white-soft: #f8f8f8;
+  --white-mute: #f2f2f2;
 
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
+  --black: #181818;
+  --black-soft: #222222;
+  --black-mute: #282828;
 
-  --vt-c-indigo: #2c3e50;
+  --background-blue: #1f3251;
 
-  --vt-c-background-blue: #1f3251;
+  --divider-light-2: #CBD0DC;
 
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: #02012e;
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-  --vt-c-text-grey: #666;
+  --text-light-1: #666;
+  --text-light-2: #02012e;
 }
 
-/* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --color-background: var(--white);
+  --color-background-soft: var(--white-soft);
+  --color-background-mute: var(--white-mute);
+  --color-background-accordion: #F9FBFF;
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --color-border: var(--divider-light-2);
+  --color-border-hover: var(--divider-light-1);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
-
-  --section-gap: 160px;
+  --color-text-1: var(--text-light-1);
+  --color-text-2: var(--text-light-2);
+  --color-text-blue: var(--background-blue);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+    --color-background: var(--black);
+    --color-background-soft: var(--black-soft);
+    --color-background-mute: var(--black-mute);
+    --color-background-accordion: #fff;
+    
+    --color-border: var(--divider-dark-2);
+    --color-border-hover: var(--divider-dark-1);
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text-1: var(--text-light-1);
+    --color-text-2: var(--text-light-2);
+    --color-text-blue: var(--background-blue);
   }
 }
 

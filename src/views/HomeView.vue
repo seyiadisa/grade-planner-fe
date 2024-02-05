@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Tile from "../components/Tile.vue";
-import IconResult from "../components/icons/IconResult.vue";
-import IconCourse from "../components/icons/IconCourse.vue";
-import IconEstimate from "../components/icons/IconEstimate.vue";
-import IconArrow from "../components/icons/IconArrow.vue";
+import Tile from "@/components/Tile.vue";
+import IconResult from "@/components/icons/IconResult.vue";
+import IconCourse from "@/components/icons/IconCourse.vue";
+import IconEstimate from "@/components/icons/IconEstimate.vue";
+import IconArrow from "@/components/icons/IconArrowRight.vue";
 </script>
 
 <template>
@@ -44,7 +44,7 @@ import IconArrow from "../components/icons/IconArrow.vue";
   </div>
 
   <div class="btn-container">
-    <RouterLink to="/about" class="link-button">
+    <RouterLink to="/upload" class="link-button">
       Start estimating
       <IconArrow class="arrow" />
     </RouterLink>
@@ -63,11 +63,11 @@ header span {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  @apply mx-5;
+  /* @apply mx-5; */
 }
 
 header p {
-  color: var(--vt-c-text-grey);
+  color: var(--color-text-1);
   font-size: 16px;
   font-weight: 500;
   @apply mx-7 my-4;
@@ -84,7 +84,7 @@ header p {
 }
 
 .link-button {
-  background: var(--vt-c-background-blue);
+  background: var(--color-text-blue);
   padding: 8px 15px;
   border-radius: 32px;
   color: #fff;
