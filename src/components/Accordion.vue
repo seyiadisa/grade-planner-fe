@@ -3,7 +3,7 @@ import IconArrowUp from "@/components/icons/IconArrowUp.vue"
 import IconArrowDown from "@/components/icons/IconArrowDown.vue"
 import { ref } from "vue"
 
-let isOpen = ref<boolean>(true);
+let isOpen = ref<boolean>(false);
 
 function openAccordion(): void {
 	isOpen.value = !isOpen.value;
@@ -44,12 +44,12 @@ button {
 	border-radius: 8px;
 	padding: 12px 12px;
 	width: 100%;
-	@apply flex flex-row justify-center items-center
+	font-size: 14px;
+	@apply flex flex-row justify-center items-center gap-3
 }
 
 button span:first-child {
 	color: var(--color-text-blue);
-	font-size: 18px;
 }
 
 button span:nth-child(2) {

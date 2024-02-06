@@ -44,7 +44,7 @@ import IconArrow from "@/components/icons/IconArrowRight.vue";
   </div>
 
   <div class="btn-container">
-    <RouterLink to="/upload" class="link-button">
+    <RouterLink to="/upload-result" class="link-button">
       Start estimating
       <IconArrow class="arrow" />
     </RouterLink>

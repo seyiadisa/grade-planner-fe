@@ -9,7 +9,7 @@
 
   --background-blue: #1f3251;
 
-  --divider-light-2: #CBD0DC;
+  --divider-light-2: #cbd0dc;
 
   --text-light-1: #666;
   --text-light-2: #02012e;
@@ -19,11 +19,12 @@
   --color-background: var(--white);
   --color-background-soft: var(--white-soft);
   --color-background-mute: var(--white-mute);
-  --color-background-accordion: #F9FBFF;
+  --color-background-accordion: #f9fbff;
 
   --color-border: var(--divider-light-2);
   --color-border-hover: var(--divider-light-1);
 
+  --color-link: #375ef9;
   --color-text-1: var(--text-light-1);
   --color-text-2: var(--text-light-2);
   --color-text-blue: var(--background-blue);
@@ -35,7 +36,7 @@
     --color-background-soft: var(--black-soft);
     --color-background-mute: var(--black-mute);
     --color-background-accordion: #fff;
-    
+
     --color-border: var(--divider-dark-2);
     --color-border-hover: var(--divider-dark-1);
 
