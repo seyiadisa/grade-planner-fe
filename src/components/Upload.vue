@@ -70,7 +70,7 @@ function uploadResult(file: File) {
 
 function uploadCourseStructure(file: File) {
 	sendFile(props.page, file, uploadProgress).then(res => {
-		store.updateCourseStructure(res.data.data);
+		store.updateCourseStructure(res.data.data.semesters);
 		emit("uploadSuccess");
 	}).catch(err => {
 		if (err.response && err.response.status == 422) {

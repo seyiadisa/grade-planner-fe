@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { store } from "@/store";
+import router from "@/router";
 
 const props = defineProps<{
 	open: boolean
@@ -9,11 +10,13 @@ const emit = defineEmits(["closeModal"]);
 
 function closeModal() {
 	emit("closeModal");
-
+	store.updateCourseStructure(store.courseStructure);
+	router.push("/generate-grades");
 }
 
-function toggleClick(e: any) {
-	e.target.classList.toggle("active")
+function toggleClick(e: any, semester: any) {
+	e.target.classList.toggle("active");
+	semester.estimate = semester.estimate ? false : true;
 }
 </script>
 
@@ -23,7 +26,7 @@ function toggleClick(e: any) {
 			<h1>Semester Estimation</h1>
 			<p>Select the semesters you want to start estimating</p>
 			<div class="pills">
-				<div class="pill" v-for="semester in store.courseStructure.semesters" @click="toggleClick">
+				<div class="pill" v-for="semester in store.courseStructure" @click="(e) => toggleClick(e, semester)">
 					{{ semester.title }}
 				</div>
 			</div>

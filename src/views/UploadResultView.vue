@@ -69,9 +69,8 @@ function submitDetails(e: Event) {
 							<span>{{ store.numberOfUnits }}</span>
 						</div>
 					</div>
-					{{ console.log(store) }}
-					<button :class="{ inactive: (!filePresent && store.numberOfUnits <= 0) }"
-						:disabled="!filePresent && store.numberOfUnits <= 0" @click="uploadDone">Continue</button>
+					<button :class="{ inactive: (store.numberOfUnits <= 0) }" :disabled="store.numberOfUnits <= 0"
+						@click="uploadDone">Continue</button>
 				</div>
 			</template>
 		</Accordion>
@@ -170,13 +169,13 @@ input[type="number"] {
 }
 
 .cgpa-units>div>span:first-child {
-	color: var(--color-text-blue);
+	color: var(--color-text-4);
 	font-size: 16px;
 	font-weight: 400;
 }
 
 .cgpa-units>div>span:last-child {
-	color: var(--color-text-blue);
+	color: var(--color-text-4);
 	font-size: 16px;
 	font-weight: 500;
 	margin-left: 8px;

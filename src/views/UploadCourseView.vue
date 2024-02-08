@@ -4,7 +4,6 @@ import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
 import Modal from "@/components/Modal.vue";
 import Alert from "@/components/Alert.vue";
 import { ref } from "vue";
-import router from "@/router";
 import { store } from "@/store";
 
 let showFailAlert = ref(false);
@@ -33,7 +32,6 @@ function badResponse() {
 function submitFile() {
 	console.log(store);
 	openModal.value = true;
-	router.push("/generate-grades");
 }
 
 </script>
@@ -51,7 +49,8 @@ function submitFile() {
 				information</span>
 			<Upload page="course_structure" @file-too-large="popupFail" @upload-failed="uploadFail"
 				@bad-response="badResponse" @upload-success="popupSuccess" />
-			<button @click="submitFile" :disabled="store.courseStructure.semesters">Continue</button>
+			<button @click="submitFile" :class="{ inactive: !(store.courseStructure.length > 1) }"
+				:disabled="!(store.courseStructure.length > 1)">Continue</button>
 		</div>
 	</main>
 
@@ -124,6 +123,10 @@ main {
 	color: white;
 	padding: 8px 50px;
 	border-radius: 32px;
+}
+
+.inactive {
+	background-color: var(--color-inactive) !important;
 }
 
 @media (min-width: 640px) {

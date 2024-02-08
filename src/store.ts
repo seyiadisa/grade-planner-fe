@@ -16,7 +16,7 @@ interface SemesterResult {
 	total_units: number
 }
 
-interface CourseStructure {
+export interface CourseStructure {
 	course_code: string,
 	title: string,
 	unit: number,
@@ -25,14 +25,15 @@ interface CourseStructure {
 
 interface SemesterStructure {
 	courses: Array<CourseStructure>,
-	title: string
+	title: string,
+	estimate?: boolean
 }
 
 export const store = reactive({
 	studentCGPA: sessionStorage.getItem("cgpa") ? Number(sessionStorage.getItem("cgpa")) : 0,
 	numberOfUnits: sessionStorage.getItem("units") ? Number(sessionStorage.getItem("units")) : 0,
-	semesterResults: sessionStorage.getItem("sem_results") ? JSON.parse(sessionStorage.getItem("sem_results")!).semesters : [<SemesterResult>{}],
-	courseStructure: sessionStorage.getItem("structure") ? JSON.parse(sessionStorage.getItem("structure")!).semesters : [<SemesterStructure>{}],
+	semesterResults: sessionStorage.getItem("sem_results") ? JSON.parse(sessionStorage.getItem("sem_results")!) : [<SemesterResult>{}],
+	courseStructure: sessionStorage.getItem("structure") ? JSON.parse(sessionStorage.getItem("structure")!) : [<SemesterStructure>{}],
 	changeCGPA(cgpa: number) {
 		this.studentCGPA = cgpa;
 		sessionStorage.setItem("cgpa", this.studentCGPA.toString());
@@ -43,10 +44,10 @@ export const store = reactive({
 	},
 	updateSemesterResults(sems: Array<SemesterResult>) {
 		this.semesterResults = sems;
-		sessionStorage.setItem("sem_results", JSON.stringify({"semesters": this.semesterResults}));
+		sessionStorage.setItem("sem_results", JSON.stringify(this.semesterResults));
 	},
 	updateCourseStructure(courses: Array<SemesterStructure>) {
 		this.courseStructure = courses;
-		sessionStorage.setItem("structure", JSON.stringify({"semesters": this.semesterResults}));
+		sessionStorage.setItem("structure", JSON.stringify(this.courseStructure));
 	}
 });
