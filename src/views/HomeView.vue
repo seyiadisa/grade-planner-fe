@@ -59,7 +59,7 @@ header {
 header span {
   font-size: 36px;
   font-weight: 700;
-  background: linear-gradient(180deg, rgba(14, 84, 106, 0.50) -30.56%, #01082E 100%);
+  background: var(--color-linear-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

@@ -3,20 +3,19 @@ import IconClose from "@/components/icons/IconClose.vue";
 import IconSuccess from "@/components/icons/IconSuccess.vue";
 import { ref } from "vue";
 
-let props = defineProps<{
+const props = defineProps<{
 	success: boolean
 	isOpen: boolean
 }>()
-
-let open = ref(props.isOpen);
+const emit = defineEmits(["closeAlert"]);
 
 function closeAlert() {
-	open.value = false;
+	emit("closeAlert");
 }
 </script>
 
 <template>
-	<div id="overlay" v-show="open">
+	<div id="toast-overlay" v-if="isOpen">
 		<div id="toast">
 			<IconSuccess class="success-icon" />
 			<div>
@@ -27,18 +26,21 @@ function closeAlert() {
 					<slot name="description"></slot>
 				</p>
 			</div>
-			<IconClose class="close-icon" @click="closeAlert" />
+			<button @click="closeAlert">
+				<IconClose class="close-icon" />
+			</button>
 		</div>
 	</div>
 </template>
 
 <style scoped>
-#overlay {
+#toast-overlay {
 	display: flex;
 	position: fixed;
 	justify-content: center;
 	width: 100vw;
 	height: 100vh;
+	top: 0;
 	z-index: 10;
 }
 
@@ -55,6 +57,10 @@ function closeAlert() {
 	align-items: center;
 	width: 90%;
 	z-index: 15;
+}
+
+#toast div {
+	flex-grow: 2;
 }
 
 .success-icon {
@@ -77,4 +83,6 @@ p {
 	font-weight: 400;
 	font-size: 14px;
 }
+
+@media (min-width: 640px) {}
 </style>

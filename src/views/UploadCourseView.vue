@@ -3,15 +3,43 @@ import Upload from "@/components/Upload.vue";
 import IconArrowLeft from "@/components/icons/IconArrowLeft.vue";
 import Modal from "@/components/Modal.vue";
 import Alert from "@/components/Alert.vue";
+import { ref } from "vue";
+import router from "@/router";
+import { store } from "@/store";
+
+let showFailAlert = ref(false);
+let showSuccessAlert = ref(false);
+let showUploadFail = ref(false);
+let showBadResponse = ref(false);
+let openModal = ref(false);
+
+function popupFail() {
+	showFailAlert.value = true;
+}
+
+function popupSuccess() {
+	showSuccessAlert.value = true;
+}
+
+function uploadFail() {
+	showUploadFail.value = true;
+}
+
+function badResponse() {
+	showBadResponse.value = true;
+}
+
 
 function submitFile() {
-
+	console.log(store);
+	openModal.value = true;
+	router.push("/generate-grades");
 }
 
 </script>
 
 <template>
-	<Modal />
+	<Modal :open="openModal" @close-modal="openModal = false" />
 	<main>
 		<RouterLink to="/upload-result" class="step-info">
 			<IconArrowLeft class="icon" />
@@ -21,14 +49,30 @@ function submitFile() {
 			<p>Upload Course Structure</p>
 			<span>Upload semester registrations for each semester or manually enter course details with grade and credit
 				information</span>
-			<Upload />
-			<button @click="submitFile">Continue</button>
+			<Upload page="course_structure" @file-too-large="popupFail" @upload-failed="uploadFail"
+				@bad-response="badResponse" @upload-success="popupSuccess" />
+			<button @click="submitFile" :disabled="store.courseStructure.semesters">Continue</button>
 		</div>
 	</main>
 
-	<Alert :success="false" :is-open="true">
+	<Alert :success="true" :is-open="showSuccessAlert" @close-alert="showSuccessAlert = false">
 		<template #title>Upload Successful!</template>
 		<template #description>Your course structure has been successfully uploaded</template>
+	</Alert>
+
+	<Alert :success="false" :is-open="showFailAlert" @close-alert="showFailAlert = false">
+		<template #title>Upload Failed!</template>
+		<template #description>File is too large</template>
+	</Alert>
+
+	<Alert :success="false" :is-open="showUploadFail" @close-alert="showUploadFail = false">
+		<template #title>Upload Failed!</template>
+		<template #description>There was a problem contacting the server</template>
+	</Alert>
+
+	<Alert :success="false" :is-open="showBadResponse" @close-alert="showBadResponse = false">
+		<template #title>Upload Failed!</template>
+		<template #description>There was a problem with the file you uploaded. Are you sure it is your result?</template>
 	</Alert>
 </template>
 
@@ -44,6 +88,7 @@ main {
 	justify-content: center;
 	display: inline;
 	font-size: 14px;
+	color: var(--color-text-1);
 }
 
 .icon {
@@ -79,5 +124,11 @@ main {
 	color: white;
 	padding: 8px 50px;
 	border-radius: 32px;
+}
+
+@media (min-width: 640px) {
+	main {
+		margin: 40px;
+	}
 }
 </style>

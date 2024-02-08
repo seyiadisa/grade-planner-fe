@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { store } from "@/store";
 
-let isOpen = ref(true);
+const props = defineProps<{
+	open: boolean
+}>();
+const emit = defineEmits(["closeModal"]);
 
 function closeModal() {
-	isOpen.value = false;
+	emit("closeModal");
+
 }
 
 function toggleClick(e: any) {
@@ -13,19 +18,14 @@ function toggleClick(e: any) {
 </script>
 
 <template>
-	<div id="overlay" v-show="isOpen">
+	<div id="modal-overlay" v-if="open">
 		<div id="modal">
 			<h1>Semester Estimation</h1>
 			<p>Select the semesters you want to start estimating</p>
 			<div class="pills">
-				<div class="pill" @click="toggleClick">100 level First Semester</div>
-				<div class="pill" @click="toggleClick">100 level Second Semester</div>
-				<div class="pill" @click="toggleClick">200 level First Semester</div>
-				<div class="pill" @click="toggleClick">200 level Second Semester</div>
-				<div class="pill" @click="toggleClick">300 level First Semester</div>
-				<div class="pill" @click="toggleClick">300 level Second Semester</div>
-				<div class="pill" @click="toggleClick">400 level First Semester</div>
-				<div class="pill" @click="toggleClick">400 level Second Semester</div>
+				<div class="pill" v-for="semester in store.courseStructure.semesters" @click="toggleClick">
+					{{ semester.title }}
+				</div>
 			</div>
 			<button @click="closeModal">Continue</button>
 		</div>
@@ -33,7 +33,7 @@ function toggleClick(e: any) {
 </template>
 
 <style scoped>
-#overlay {
+#modal-overlay {
 	position: fixed;
 	display: flex;
 	justify-content: center;
@@ -68,6 +68,7 @@ function toggleClick(e: any) {
 
 #modal>p {
 	text-align: center;
+	color: var(--color-text-1);
 }
 
 .icon {
@@ -85,11 +86,13 @@ function toggleClick(e: any) {
 }
 
 .pill {
-	color: var(--color-text-2);
+	/* color: var(--color-text-2); */
+	color: var(--color-text-4);
 	padding: 4px 20px;
 	border-radius: 42px;
 	border: 1px solid var(--color-border);
 	text-wrap: nowrap;
+	font-size: 14px;
 }
 
 .active {

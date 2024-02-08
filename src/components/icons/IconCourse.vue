@@ -12,3 +12,9 @@
 		</defs>
 	</svg>
 </template>
+
+<style scoped>
+path {
+	fill: var(--color-text-1);
+}
+</style>

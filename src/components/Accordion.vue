@@ -3,10 +3,12 @@ import IconArrowUp from "@/components/icons/IconArrowUp.vue"
 import IconArrowDown from "@/components/icons/IconArrowDown.vue"
 import { ref } from "vue"
 
+const emit = defineEmits(["open"])
 let isOpen = ref<boolean>(false);
 
 function openAccordion(): void {
 	isOpen.value = !isOpen.value;
+	emit("open");
 }
 
 </script>
@@ -45,7 +47,7 @@ button {
 	padding: 12px 12px;
 	width: 100%;
 	font-size: 14px;
-	@apply flex flex-row justify-center items-center gap-3
+	@apply flex flex-row justify-between items-center gap-3
 }
 
 button span:first-child {
@@ -60,5 +62,12 @@ button span:nth-child(2) {
 button .icon {
 	width: 24px;
 	height: 24px;
+}
+
+@media (min-width: 640px) {
+	button {
+		justify-content: space-between;
+		@apply px-10
+	}
 }
 </style>

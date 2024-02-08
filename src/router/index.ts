@@ -18,6 +18,11 @@ const router = createRouter({
       path: '/upload-course',
       name: 'upload-course',
       component: () => import('../views/UploadCourseView.vue')
+    },
+    {
+      path: '/generate-grades',
+      name: 'generate-grades',
+      component: () => import('../views/GenerateGradesView.vue')
     }
   ]
 })
