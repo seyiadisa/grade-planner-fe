@@ -33,7 +33,7 @@
 	align-self: flex-start;
 	font-size: 16px;
 	font-weight: 400;
-	color: var(--color-text-3);
+	color: var(--color-text-4);
 }
 
 .icon {

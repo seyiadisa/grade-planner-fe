@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconClose from "@/components/icons/IconClose.vue";
 import IconSuccess from "@/components/icons/IconSuccess.vue";
+import IconError from "./icons/IconError.vue";
 import { ref } from "vue";
 
 const props = defineProps<{
@@ -16,8 +17,9 @@ function closeAlert() {
 
 <template>
 	<div id="toast-overlay" v-if="isOpen">
-		<div id="toast">
-			<IconSuccess class="success-icon" />
+		<div id="toast" :class="{ 'error': !success }">
+			<IconSuccess class="success-icon" v-if="success" />
+			<IconError class="success-icon" v-if="!success" />
 			<div>
 				<h1>
 					<slot name="title"></slot>
@@ -57,6 +59,15 @@ function closeAlert() {
 	align-items: center;
 	width: 90%;
 	z-index: 15;
+}
+
+.error {
+	border-color: var(--color-border-error) !important;
+}
+
+.error h1,
+.error p {
+	color: var(--color-text-error) !important;
 }
 
 #toast div {

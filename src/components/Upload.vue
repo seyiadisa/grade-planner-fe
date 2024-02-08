@@ -2,9 +2,10 @@
 import IconUpload from "@/components/icons/IconUpload.vue";
 import IconPdf from "@/components/icons/IconPdf.vue";
 import IconTrash from "@/components/icons/IconTrash.vue";
+import Progress from "./Progress.vue";
 import { controller, sendFile } from "@/fetch"
 import { store } from "@/store";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { type AxiosProgressEvent } from "axios";
 
 const props = defineProps<{
@@ -14,15 +15,22 @@ const emit = defineEmits(["fileTooLarge", "fileAdded", "fileRemoved", "uploadFai
 
 let file = ref<string | null>(sessionStorage.getItem(props.page));
 let isDragOver = ref(false);
+let fileSize = ref<number>(0);
+let sizeUploaded = ref(0);
+let showProgressBar = ref(true);
+
+watch(sizeUploaded, async (newSizeUploaded) => {
+	if (newSizeUploaded == fileSize.value) {
+		setTimeout(() => showProgressBar.value = false, 1000)
+	}
+});
 
 function uploadProgress(e: AxiosProgressEvent) {
-	const { bytes } = e;
-	let fileSize = JSON.parse(sessionStorage.getItem(props.page)!).size;
+	const { loaded } = e;
+	let size = JSON.parse(sessionStorage.getItem(props.page)!).size;
 
-	let sizeBytes = Math.ceil(bytes / 1024);
-	fileSize = Math.ceil(fileSize / 1024);
-
-	// console.log(`${sizeBytes} of ${fileSize}`);
+	fileSize.value = Math.ceil(size / 1024);
+	sizeUploaded.value = Math.ceil(loaded / 1024);
 }
 
 function uploadFile(files: FileList | undefined | null) {
@@ -116,13 +124,19 @@ function dragLeaveHandler(e: Event) {
 	<div class="upload" v-show="file">
 		<span>
 			<IconPdf class="icon" />
-			<span>
-				{{ file ? JSON.parse(file).name : "" }}
-			</span>
+			<div>
+				<p>
+					{{ file ? JSON.parse(file).name : "" }}
+				</p>
+				<p>
+					<span>{{ sizeUploaded }} KB of {{ fileSize }} KB •</span>
+				</p>
+			</div>
 			<button @click="removeFile">
 				<IconTrash class="icon-trash" />
 			</button>
 		</span>
+		<Progress :max-value="fileSize" :current-value="sizeUploaded" v-show="showProgressBar" />
 	</div>
 </template>
 
@@ -156,6 +170,7 @@ input[type="file"] {
 	width: 95%;
 	margin: auto;
 	color: var(--color-text-4);
+	font-size: 14px;
 }
 
 .upload>span {

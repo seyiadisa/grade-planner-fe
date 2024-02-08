@@ -16,4 +16,8 @@
 path {
 	fill: var(--color-text-1);
 }
+
+.error path {
+	fill: var(--color-text-error) !important;
+}
 </style>
