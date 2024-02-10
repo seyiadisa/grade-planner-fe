@@ -43,7 +43,7 @@ function closeAlert() {
 	width: 100vw;
 	height: 100vh;
 	top: 0;
-	z-index: 10;
+	z-index: -10;
 }
 
 #toast {
@@ -58,7 +58,7 @@ function closeAlert() {
 	gap: 12px;
 	align-items: center;
 	width: 90%;
-	z-index: 15;
+	z-index: -10;
 }
 
 .error {
