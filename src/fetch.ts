@@ -1,6 +1,12 @@
 import axios, { type AxiosProgressEvent } from "axios";
 import { type CourseStructure } from "./store";
 
+interface RequestJSON {
+  course_code: string,
+  title: string,
+  unit: number
+}
+
 const baseURL = "https://grade-planner-be.onrender.com/api/v1/";
 const control = new AbortController();
 const signal = control.signal;
@@ -25,10 +31,20 @@ export function sendFile(endpoint: string ,file: File, upload?: ((e: AxiosProgre
 }
 
 export function sendJson(endpoint: string, courses: Array<CourseStructure>, target_cgpa: number) {
+  let coursesArr: Array<RequestJSON> = [];
+
+  courses.forEach(course => {
+    coursesArr.push({
+      course_code: course.course_code,
+      title: course.title,
+      unit: course.unit
+    });
+  });
+
   return instance.post(endpoint, {
     signal,
     semester: {
-      courses: JSON.stringify(courses)
+      courses: coursesArr
     },
     target_cgpa
   }, {

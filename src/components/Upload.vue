@@ -34,6 +34,8 @@ function uploadProgress(e: AxiosProgressEvent) {
 }
 
 function uploadFile(files: FileList | undefined | null) {
+	showProgressBar.value = true;
+
 	if (files && files?.length > 0) {
 		if (files[0].size <= 1048576) {
 			sessionStorage.setItem(props.page, JSON.stringify({

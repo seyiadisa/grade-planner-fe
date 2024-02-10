@@ -23,7 +23,7 @@ export interface CourseStructure {
 	is_elective: boolean
 }
 
-interface SemesterStructure {
+export interface SemesterStructure {
 	courses: Array<CourseStructure>,
 	title: string,
 	estimate?: boolean

@@ -41,9 +41,8 @@ function closeAlert() {
 	position: fixed;
 	justify-content: center;
 	width: 100vw;
-	height: 100vh;
-	top: 0;
-	z-index: -10;
+	height: 0px;
+	bottom: 0;
 }
 
 #toast {

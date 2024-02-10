@@ -30,7 +30,6 @@ function badResponse() {
 
 
 function submitFile() {
-	console.log(store);
 	openModal.value = true;
 }
 
