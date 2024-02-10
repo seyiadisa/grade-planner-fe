@@ -125,6 +125,10 @@ header p {
     font-size: 16px;
   }
 
+  .link-button {
+    font: 16px;
+  }
+
   .tiles {
     @apply gap-y-12;
   }
