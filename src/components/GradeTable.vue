@@ -18,15 +18,20 @@ const props = defineProps<{
 	courses: Array<CourseStructure>,
 }>();
 
+let dropdownName = ref((props.title.split(' ').join('')));
 let coursesArray = reactive(props.courses);
 let generated_grades = reactive<Array<ResponseJSON>>([<ResponseJSON>{}]);
 let totalUnits = ref(0);
 let gpa = ref(0);
 
-/* onMounted(() => {
+onMounted(() => {
+	let totalSemesterUnits: number = 0;
+
 	coursesArray.forEach((course) => {
-		totalUnits.value += course.unit;
+		totalSemesterUnits += course.unit;
 	});
+
+	totalUnits.value = totalSemesterUnits;
 	regenerateHandler();
 });
 
@@ -39,33 +44,34 @@ function regenerateHandler() {
 }
 
 function changeGrade(e: Event, index: number) {
+	let totalGradePoints = 0;
+	let dropdowns = document.getElementsByName(dropdownName.value);
+
 	generated_grades[index].grade_int = Number((e.target as HTMLInputElement).value);
 	generated_grades[index].grade = (document.getElementsByTagName("option")[(e.target as HTMLSelectElement).selectedIndex] as HTMLOptionElement).textContent!;
-	console.log(generated_grades);
-
-	let total = 0;
-	let dropdowns = document.getElementsByName("grades");
 
 	dropdowns.forEach((dropdown, i) => {
 		if (generated_grades[i]) {
-
-			total += Number((dropdown as HTMLInputElement).value) * generated_grades[i].unit;
+			totalGradePoints += Number((dropdown as HTMLInputElement).value) * generated_grades[i].unit;
 		}
 	});
 
-	gpa.value = total / totalUnits.value;
+	console.log(dropdowns);
+	console.log(generated_grades);
+	gpa.value = totalGradePoints / totalUnits.value;
 
-	emit("gradeChange", total, totalUnits.value);
-} */
+	console.log(gpa.value);
+	emit("gradeChange", totalGradePoints, totalUnits.value);
+}
 
 </script>
 
 <template>
 	<div class="table">
-		<div id="container">
+		<div class="container">
 			<header>
 				<h1>{{ props.title }}</h1>
-				<button @click="">Regenerate</button>
+				<button @click="regenerateHandler">Regenerate</button>
 			</header>
 			<div>
 				<span>Course Code</span>
@@ -76,7 +82,8 @@ function changeGrade(e: Event, index: number) {
 				<span>{{ course.course_code + "\t" }} </span>
 				<span>{{ course.unit }}</span>
 				<span>
-					<select name="grades" id="grades" :value="course.grade_int">
+					<select :name="dropdownName" :id="dropdownName" :value="course.grade_int"
+						@change="(e) => changeGrade(e, i)">
 						<option value="5">A</option>
 						<option value="4">B</option>
 						<option value="3">C</option>
@@ -92,7 +99,7 @@ function changeGrade(e: Event, index: number) {
 </template>
 
 <style scoped>
-#container {
+.container {
 	border: 2px solid var(--color-border);
 	border-radius: 16px;
 	background-color: var(--color-background-tile);

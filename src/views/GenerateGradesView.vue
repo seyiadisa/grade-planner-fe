@@ -22,6 +22,8 @@ onMounted(() => {
 	let grade_points = 0;
 	let units = 0;
 
+	console.log(store);
+
 	store.courseStructure.forEach((course: SemesterStructure, i: number) => {
 		if (!course.estimate) {
 			grade_points += Number(store.semesterResults[i].total_grade_points);
@@ -43,7 +45,10 @@ onMounted(() => {
 });
 
 function calculateCGPA(totalGradePoints: number, totalUnits: number) {
-	// console.log(store);
+	let grade_points: number = totalGradePoints + studentGradePoints.value;
+	let units: number = totalUnits + studentUnits.value;
+
+	studentCGPA.value = Number((grade_points / units).toFixed(2));
 }
 
 </script>
@@ -54,7 +59,6 @@ function calculateCGPA(totalGradePoints: number, totalUnits: number) {
 			<IconArrowLeft class="icon" />
 			<span>Step 3/3</span>
 		</RouterLink>
-		{{ console.log(store) }}
 		<div class="grade-data">
 			<p>Estimated CGPA: <span>{{ studentCGPA }}</span></p>
 			<p>Total Number of Units: <span>{{ store.numberOfUnits }}</span></p>
